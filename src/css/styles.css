@@ -1,0 +1,76 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #fafafa;
+  color: #212121;
+  line-height: 1.5;
+}
+
+#search-box {
+  font: inherit;
+  padding: 8px;
+  max-width: 320px;
+  margin-bottom: 16px;
+}
+
+/* img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+} */
+
+ a {
+  text-decoration: none;
+  color: #2a2a2a;
+  /* font-weight: bold; */
+  font-size: 20px;
+  /* color: red; */
+}
+
+ul {
+  list-style: none;
+}
+
+ul {
+  margin-left: 0;
+  padding-left: 0;
+}
+
+.country-flag {
+  display: flex;
+  align-items: center;
+  padding-right: 5px;
+}
+
+.img-country-flag {
+  margin-right: 10px;;
+}
+
+.country-image {
+  margin-right: 10px;
+}
+
+p {
+  /* color: #2a2a2a; */
+  font-weight: bold;
+  font-size: 24px;
+  color: rgb(0, 54, 24);
+}
+
+
+p .bold {
+   /* color: #2a2a2a; */
+  font-weight: bold;
+  font-size: 20px;
+  color: rgb(54, 0, 0);
+}
+
+.card-title {
+  color: rgb(165, 3, 3);
+}
