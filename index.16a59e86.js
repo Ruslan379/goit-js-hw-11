@@ -11,15 +11,11 @@ Object.defineProperty(u,"__esModule",{value:!0}),u.default=function(t,e,o){e&&h(
 this.page=1,//! номер страници в fetch-запросе
 this.per_page=7}return e(u)(t,[{key:"fetchHits",value:function(){var t=this,e="".concat("https://pixabay.com/api/","?key=").concat("28759369-3882e1068ac26fe18d14affeb","&q=").concat(this.searchQuery,"&image_type=photo&orientation=horizontal&safesearch=true&page=").concat(this.page,"&per_page=").concat(this.per_page);//! with API_KEY
 //! Делаем fetch-запрос:
-fetch(e).then((function(t){return t.json()})).then((function(t){console.log(t)})).then((function(e){t.incrementPage()}))}},{key:"incrementPage",value:function(){this.page+=1}},{key:"resetPage",value:function(){this.page=1}},{key:"query",get:function(){return this.searchQuery},set:function(t){this.searchQuery=t}}]),t}();var x={
-//! Получаем ссылку на input form:
-searchForm:document.querySelector("#search-form"),
-//! Получаем ссылку на div-контейнер для разметки карточек изображений:
-imageCards:document.querySelector(".gallery"),
-//! Получаем ссылку на кнопку LOAD MORE:
-loadMoreBtn:document.querySelector(".load-more")},y=new g;//! Создаем объект всех ссылок refs.*
+return fetch(e).then((function(t){return t.json()})).then((function(e){var o=e.hits;return t.incrementPage(),o}))}},{key:"incrementPage",value:function(){this.page+=1}},{key:"resetPage",value:function(){this.page=1}},{key:"query",get:function(){return this.searchQuery},set:function(t){this.searchQuery=t}}]),t}();var x={searchForm:document.querySelector("#search-form"),imageCards:document.querySelector(".gallery"),loadMoreBtn:document.querySelector(".load-more")},y=new g;//! Создаем объект всех ссылок refs.*
+function b(t){
+//!   Добавляем новую разметку в div-контейнер с помощью insertAdjacentHTML:
+x.imageCards.insertAdjacentHTML("beforeend",function(t){return t.map((function(t){var e=t.webformatURL,o=(t.largeImageURL,t.tags),i=t.likes,n=t.views,a=t.comments,r=t.downloads;return'\n                <div class="photo-card">\n                    <img class="img-card"\n                        src="'.concat(e,'"\n                        alt="').concat(o,'"\n                        loading="lazy" \n                        />\n                    <div class="info">\n                        <p class="info-item">\n                            <b>Likes</b>\n                            <b>"').concat(i,'"</b>\n                        </p>\n                        <p class="info-item">\n                            <b>Views</b>\n                            <b>"').concat(n,'"</b>\n                        </p>\n                        <p class="info-item">\n                            <b>Comments</b>\n                            <b>"').concat(a,'"</b>\n                        </p>\n                        <p class="info-item">\n                            <b>Downloads</b>\n                            <b>"').concat(r,'"</b>\n                        </p>\n                    </div>\n                </div>\n            ')})).join("")}(t))}
 //! Формируем строку URL-запроса:
-//!  Создаем слушателя событий на поле ввода данных - input form:
 x.searchForm.addEventListener("submit",(
 //!  Ф-ция, к-рая прослушивает события на поле ввода данных - input form:
 function(t){t.preventDefault(),console.log("Вешаю слушателя на поле ввода данных - input form"),//!
@@ -30,11 +26,11 @@ y.query=t.currentTarget.elements.searchQuery.value,console.log("Search: ",y.quer
 //! с помощью метода resetPage из класса PixabayApiService
 y.resetPage(),
 //! Делаем fetch-запрос с помощью метода .fetchHits из класса PixabayApiService
-y.fetchHits()}
+y.fetchHits().then(b)}
 //!  Ф-ция, к-рая прослушивает события на кнопке LOAD MORE:
-)),
-//!  Создаем слушателя событий на кнопке LOAD MORE:
-x.loadMoreBtn.addEventListener("click",(function(t){
+)),x.loadMoreBtn.addEventListener("click",(function(t){
 //! Делаем fetch-запрос с помощью метода .fetchHits из класса PixabayApiService
-y.fetchHits()}))}();
-//# sourceMappingURL=index.565fea6c.js.map
+y.fetchHits().then(b);
+//! Или так:
+}))}();
+//# sourceMappingURL=index.16a59e86.js.map
