@@ -8,7 +8,7 @@ const BASE_URL = 'https://restcountries.com/v3.1';
 function fetchCountries(name) {
     // console.log(name); //!
 
-    // return axios.get(`${BASE_URL}/name/${name}`)
+    //? return axios.get(`${BASE_URL}/name/${name}`)
     return axios.get(`${BASE_URL}/name/${name}?fields=name,capital,population,flags,languages`)
         .then(response => {
             return response.data;
@@ -17,3 +17,6 @@ function fetchCountries(name) {
 }
 
 export default { fetchCountries };
+
+
+//!+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
