@@ -16,31 +16,7 @@ import getRefs from './js/get-refs.js'; //! Импорт всех ссылок �
 const refs = getRefs(); //! Создаем объект всех ссылок refs.*
 
 const pixabayApiService = new PixabayApiService();
-//-----------------------------------------------------------------------
-//! old
-// const API_KEY = '4330ebfabc654a6992c2aa792f3173a3'; //! old
-// const BASE_URL = 'https://newsapi.org/v2'; //! old
 
-//! old
-// const options = {
-//     headers: {
-//         Authorization: API_KEY,
-//     },
-// };
-
-// const url = `${BASE_URL}everything?q=${q}&language=en&pageSize=5&page=${page}`; //! old
-//-----------------------------------------------------------------------
-
-
-//! Переменные для URL-запроса:
-const API_KEY = '28759369-3882e1068ac26fe18d14affeb';
-const BASE_URL = 'https://pixabay.com/api/';
-
-
-// let searchQuery = ""; //!  то, что приходит в input
-//! Пагинация:
-const page = 1;
-const per_page = 5; // по ТЗ надо 40
 
 
 // https://pixabay.com/api/?key=28759369-3882e1068ac26fe18d14affeb&q=yellow+flowers&image_type=photo //! Example URL
@@ -53,12 +29,11 @@ const per_page = 5; // по ТЗ надо 40
 // console.log(url);
 
 
-//!  Создаем слушателя событий на поле ввода данных - input form:
+//todo  Создаем слушателя событий на поле ввода данных - input form:
 refs.searchForm.addEventListener('submit', onFormSearch);
 
-//!  Создаем слушателя событий на кнопке LOAD MORE:
+//todo  Создаем слушателя событий на кнопке LOAD MORE:
 refs.loadMoreBtn.addEventListener('click', onLoadMore);
-
 
 //!  Ф-ция, к-рая прослушивает события на поле ввода данных - input form:
 function onFormSearch(evt) {
@@ -70,27 +45,14 @@ function onFormSearch(evt) {
     pixabayApiService.query = evt.currentTarget.elements.searchQuery.value;
     console.log("Search: ", pixabayApiService.query); //!
 
-
-
     //! Делаем сброс значения page = 1 после submit form 
     //! с помощью метода resetPage из класса PixabayApiService
     pixabayApiService.resetPage()
 
     //! Делаем fetch-запрос с помощью метода .fetchHits из класса PixabayApiService
     pixabayApiService.fetchHits()
+        .then(appendHitsMarkup); //* Рисование интерфейса выносим в отдельную ф-цию 
 
-
-    //!--------------------------------OLD--------------------------
-
-
-    // if (newsApiService.query === '') {
-    //     return alert('Введи что-то нормальное');
-    // }
-
-    // loadMoreBtn.show();
-    // newsApiService.resetPage();
-    // clearArticlesContainer();
-    // fetchArticles();
 }
 
 
@@ -99,8 +61,59 @@ function onLoadMore(evt) {
 
     //! Делаем fetch-запрос с помощью метода .fetchHits из класса PixabayApiService
     pixabayApiService.fetchHits()
-
+        .then(appendHitsMarkup); //* Рисование интерфейса выносим в отдельную ф-цию
+    //! Или так:
+    // pixabayApiService.fetchHits().
+    //     then(hits => {
+    //     appendHitsMarkup(hits); //* Рисование интерфейса выносим в отдельную ф-цию 
+    // });
 }
+
+//*  Ф-ция-then, к-рая отрисовывает  интерфейс:
+function appendHitsMarkup(hits) {
+    //!   Добавляем новую разметку в div-контейнер с помощью insertAdjacentHTML:
+    refs.imageCards.insertAdjacentHTML('beforeend', createImageCardsMarkup(hits));
+}
+
+
+
+//?   Ф-ция, к-рая создает новоую разметку для ОДНОЙ карточки:
+function createImageCardsMarkup(hits) {
+    return hits
+        .map(({ webformatURL, largeImageURL, tags, likes, views, comments, downloads }) => {
+            return `
+                <div class="photo-card">
+                    <img class="img-card"
+                        src="${webformatURL}"
+                        alt="${tags}"
+                        loading="lazy" 
+                        />
+                    <div class="info">
+                        <p class="info-item">
+                            <b>Likes</b>
+                            <b>"${likes}"</b>
+                        </p>
+                        <p class="info-item">
+                            <b>Views</b>
+                            <b>"${views}"</b>
+                        </p>
+                        <p class="info-item">
+                            <b>Comments</b>
+                            <b>"${comments}"</b>
+                        </p>
+                        <p class="info-item">
+                            <b>Downloads</b>
+                            <b>"${downloads}"</b>
+                        </p>
+                    </div>
+                </div>
+            `;
+        })
+        .join('');
+}
+
+
+
 
 
 

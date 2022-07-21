@@ -2,16 +2,6 @@
 const API_KEY = '28759369-3882e1068ac26fe18d14affeb';
 const BASE_URL = 'https://pixabay.com/api/';
 
-
-// let searchQuery = ""; //!  то, что приходит в input
-//! Пагинация:
-// const page = 1;
-// const per_page = 5; // по ТЗ надо 40
-
-
-
-
-
 export default class PixabayApiService {
     constructor() {
         this.searchQuery = ''; //! это то, что приходит в input
@@ -25,13 +15,14 @@ export default class PixabayApiService {
         const url = `${BASE_URL}?key=${API_KEY}&q=${this.searchQuery}&image_type=photo&orientation=horizontal&safesearch=true&page=${this.page}&per_page=${this.per_page}`; //! with API_KEY
 
         //! Делаем fetch-запрос:
-        fetch(url)
+        return fetch(url)
             .then(response => response.json())
-            .then(response => { console.log(response); }) //!
-            .then(data => {
+            // .then(response => { console.log(response); }) //!
+            .then(({ hits }) => {
                 // console.log(data); //!
                 this.incrementPage();
                 // console.log("this ПОСЛЕ: ", this); //!
+                return hits
             })
     }
 
