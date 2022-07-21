@@ -70,6 +70,12 @@ function onFormSearch(evt) {
     pixabayApiService.query = evt.currentTarget.elements.searchQuery.value;
     console.log("Search: ", pixabayApiService.query); //!
 
+
+
+    //! Делаем сброс значения page = 1 после submit form 
+    //! с помощью метода resetPage из класса PixabayApiService
+    pixabayApiService.resetPage()
+
     //! Делаем fetch-запрос с помощью метода .fetchHits из класса PixabayApiService
     pixabayApiService.fetchHits()
 
