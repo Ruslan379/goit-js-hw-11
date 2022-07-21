@@ -3,11 +3,11 @@ export default function getRefs() {
     //! Получаем ссылку на input form:
     searchForm: document.querySelector('#search-form'),
 
-    //! Получаем ссылку на список-контейнер для разметки карточек:
-    cardsList: document.querySelector('.js-articles-container'),
+    //! Получаем ссылку на div-контейнер для разметки карточек изображений:
+    imageCards: document.querySelector('.gallery'),
 
-    //! Получаем ссылку на :
-    // input: document.querySelector('input#search-box'),
+    //! Получаем ссылку на кнопку LOAD MORE:
+    loadMoreBtn: document.querySelector('.load-more'),
   };
 }
 

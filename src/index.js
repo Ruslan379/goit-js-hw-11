@@ -8,13 +8,14 @@ import SimpleLightbox from "simplelightbox";
 //? Библиотека SimpleLightbox - дополнительный импорт стилей
 import "simplelightbox/dist/simple-lightbox.min.css";
 
+import PixabayApiService from './js/api-pixabay-service.js'; //! Импорт класса PixabayApiService с ./js/get-refs.js
 import getRefs from './js/get-refs.js'; //! Импорт всех ссылок с ./js/get-refs.js
 
 // import API from './js/api-service.js';
 
 const refs = getRefs(); //! Создаем объект всех ссылок refs.*
 
-
+const pixabayApiService = new PixabayApiService();
 //-----------------------------------------------------------------------
 //! old
 // const API_KEY = '4330ebfabc654a6992c2aa792f3173a3'; //! old
@@ -36,10 +37,10 @@ const API_KEY = '28759369-3882e1068ac26fe18d14affeb';
 const BASE_URL = 'https://pixabay.com/api/';
 
 
-// const q = "dog"; //!  то, что приходит в input
+// let q = ""; //!  то, что приходит в input
 //! Пагинация:
 const page = 1;
-const per_page = 5;
+const per_page = 5; // по ТЗ надо 40
 
 
 // https://pixabay.com/api/?key=28759369-3882e1068ac26fe18d14affeb&q=yellow+flowers&image_type=photo //! Example URL
@@ -55,24 +56,25 @@ const per_page = 5;
 //!  Создаем слушателя событий на поле ввода данных - input form:
 refs.searchForm.addEventListener('submit', onFormSearch);
 
+//!  Создаем слушателя событий на кнопке LOAD MORE:
+refs.loadMoreBtn.addEventListener('click', onLoadMore);
+
 
 //!  Ф-ция, к-рая прослушивает события на поле ввода данных - input form:
 function onFormSearch(evt) {
     evt.preventDefault();
     console.log("Вешаю слушателя на поле ввода данных - input form"); //!
 
-    const q = evt.currentTarget.elements.searchQuery.value; //!  то, что приходит в input
-    console.log("Search: ", q); //!
+    //! это то, что приходит в input и 
+    //! записывается с помощью сетера класса PixabayApiService в переменную q
+    pixabayApiService.query = evt.currentTarget.elements.searchQuery.value;
+    console.log("Search: ", pixabayApiService.query); //!
 
-    const url = `${BASE_URL}?key=${API_KEY}&q=${q}&image_type=photo&page=${page}&per_page=${per_page}`; //! with API_KEY
-
-    //! Делаем fetch-запрос:
-    fetch(url)
-        .then(response => response.json())
-        .then(console.log)
+    //! Делаем fetch-запрос с помощью метода .fetchHits из класса PixabayApiService
+    pixabayApiService.fetchHits()
 
 
-
+    //!--------------------------------OLD--------------------------
     // newsApiService.query = evt.currentTarget.elements.query.value;
 
     // if (newsApiService.query === '') {
@@ -85,6 +87,14 @@ function onFormSearch(evt) {
     // fetchArticles();
 }
 
+
+//!  Ф-ция, к-рая прослушивает события на кнопке LOAD MORE:
+function onLoadMore(evt) {
+
+    //! Делаем fetch-запрос с помощью метода .fetchHits из класса PixabayApiService
+    pixabayApiService.fetchHits()
+
+}
 
 
 
