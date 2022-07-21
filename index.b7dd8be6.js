@@ -12,7 +12,7 @@ this.page=1,//! номер страници в fetch-запросе
 this.per_page=7}};//! Создаем объект всех ссылок refs.*
 function u(t){
 //!   Добавляем новую разметку в div-контейнер с помощью insertAdjacentHTML:
-f.imageCards.insertAdjacentHTML("beforeend",function(t){return t.map((({webformatURL:t,largeImageURL:e,tags:o,likes:i,views:n,comments:a,downloads:s})=>`\n                <div class="photo-card">\n                    <img class="img-card"\n                        src="${t}"\n                        alt="${o}"\n                        loading="lazy" \n                        />\n                    <div class="info">\n                        <p class="info-item">\n                            <b>Likes</b>\n                            <b>"${i}"</b>\n                        </p>\n                        <p class="info-item">\n                            <b>Views</b>\n                            <b>"${n}"</b>\n                        </p>\n                        <p class="info-item">\n                            <b>Comments</b>\n                            <b>"${a}"</b>\n                        </p>\n                        <p class="info-item">\n                            <b>Downloads</b>\n                            <b>"${s}"</b>\n                        </p>\n                    </div>\n                </div>\n            `)).join("")}(t))}
+f.imageCards.insertAdjacentHTML("beforeend",function(t){return t.map((({webformatURL:t,largeImageURL:e,tags:o,likes:i,views:n,comments:a,downloads:s})=>`\n                <div class="photo-card">\n                    <img class="img-card"\n                        src="${t}"\n                        alt="${o}"\n                        loading="lazy" \n                        />\n                    <div class="info">\n                        <p class="info-item">\n                            <b>Likes</b>\n                            <b>${i}</b>\n                        </p>\n                        <p class="info-item">\n                            <b>Views</b>\n                            <b>${n}</b>\n                        </p>\n                        <p class="info-item">\n                            <b>Comments</b>\n                            <b>${a}</b>\n                        </p>\n                        <p class="info-item">\n                            <b>Downloads</b>\n                            <b>${s}</b>\n                        </p>\n                    </div>\n                </div>\n            `)).join("")}(t)),console.log(t[0])}
 //! Формируем строку URL-запроса:
 f.searchForm.addEventListener("submit",(
 //!  Ф-ция, к-рая прослушивает события на поле ввода данных - input form:
@@ -31,4 +31,4 @@ p.fetchHits().then(u)}
 p.fetchHits().then(u);
 //! Или так:
 }));
-//# sourceMappingURL=index.de69a669.js.map
+//# sourceMappingURL=index.b7dd8be6.js.map
