@@ -73,11 +73,12 @@ function onLoadMore(evt) {
 function appendHitsMarkup(hits) {
     //!   Добавляем новую разметку в div-контейнер с помощью insertAdjacentHTML:
     refs.imageCards.insertAdjacentHTML('beforeend', createImageCardsMarkup(hits));
+    console.log(hits[0]);
 }
 
 
 
-//?   Ф-ция, к-рая создает новоую разметку для ОДНОЙ карточки:
+//?   Ф-ция, к-рая создает новую разметку для ОДНОЙ карточки:
 function createImageCardsMarkup(hits) {
     return hits
         .map(({ webformatURL, largeImageURL, tags, likes, views, comments, downloads }) => {
@@ -91,19 +92,19 @@ function createImageCardsMarkup(hits) {
                     <div class="info">
                         <p class="info-item">
                             <b>Likes</b>
-                            <b>"${likes}"</b>
+                            <b>${likes}</b>
                         </p>
                         <p class="info-item">
                             <b>Views</b>
-                            <b>"${views}"</b>
+                            <b>${views}</b>
                         </p>
                         <p class="info-item">
                             <b>Comments</b>
-                            <b>"${comments}"</b>
+                            <b>${comments}</b>
                         </p>
                         <p class="info-item">
                             <b>Downloads</b>
-                            <b>"${downloads}"</b>
+                            <b>${downloads}</b>
                         </p>
                     </div>
                 </div>
