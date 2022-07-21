@@ -37,7 +37,7 @@ const API_KEY = '28759369-3882e1068ac26fe18d14affeb';
 const BASE_URL = 'https://pixabay.com/api/';
 
 
-// let q = ""; //!  то, что приходит в input
+// let searchQuery = ""; //!  то, что приходит в input
 //! Пагинация:
 const page = 1;
 const per_page = 5; // по ТЗ надо 40
@@ -48,8 +48,8 @@ const per_page = 5; // по ТЗ надо 40
 
 
 //! Формируем строку URL-запроса:
-// const url = `${BASE_URL}?key=${API_KEY}&q=${q}&image_type=photo&page=${page}&per_page=${per_page}`; //! with API_KEY
-// const url = `${BASE_URL}?q=${q}&image_type=photo&page=${page}&per_page=${per_page}`; //! fetch(url, options) - так не роботает!
+// const url = `${BASE_URL}?key=${API_KEY}&q=${searchQuery}&image_type=photo&page=${page}&per_page=${per_page}`; //! with API_KEY
+// const url = `${BASE_URL}?q=${searchQuery}&image_type=photo&page=${page}&per_page=${per_page}`; //! fetch(url, options) - так не роботает!
 // console.log(url);
 
 
@@ -66,7 +66,7 @@ function onFormSearch(evt) {
     console.log("Вешаю слушателя на поле ввода данных - input form"); //!
 
     //! это то, что приходит в input и 
-    //! записывается с помощью сетера класса PixabayApiService в переменную q
+    //! записывается с помощью сетера класса PixabayApiService в переменную searchQuery
     pixabayApiService.query = evt.currentTarget.elements.searchQuery.value;
     console.log("Search: ", pixabayApiService.query); //!
 
@@ -75,7 +75,7 @@ function onFormSearch(evt) {
 
 
     //!--------------------------------OLD--------------------------
-    // newsApiService.query = evt.currentTarget.elements.query.value;
+
 
     // if (newsApiService.query === '') {
     //     return alert('Введи что-то нормальное');
