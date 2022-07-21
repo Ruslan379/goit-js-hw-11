@@ -1,15 +1,13 @@
 export default function getRefs() {
   return {
-    //? 1.0.Получаем ссылку на div-контейнер для разметки ОДНОЙ страны:
-    countryInfoContainer: document.querySelector('.country-info'),
+    //! Получаем ссылку на input form:
+    searchForm: document.querySelector('#search-form'),
 
-    //todo 2.0.Получаем ссылку на список для разметки СПИСКА стран:
-    countriesList: document.querySelector('.country-list'),
+    //! Получаем ссылку на список-контейнер для разметки карточек:
+    cardsList: document.querySelector('.js-articles-container'),
 
-    //* 2.0.Получаем ссылку на поле ввода данных - input:
-    input: document.querySelector('input#search-box'),
+    //! Получаем ссылку на :
+    // input: document.querySelector('input#search-box'),
   };
 }
 
-
-//!+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
