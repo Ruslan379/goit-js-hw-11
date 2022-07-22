@@ -9,6 +9,7 @@ import "simplelightbox/dist/simple-lightbox.min.css";
 
 import PixabayApiService from './js/api-pixabay-service.js'; //! Импорт класса PixabayApiService с ./js/get-refs.js
 import getRefs from './js/get-refs.js'; //! Импорт всех ссылок с ./js/get-refs.js
+// import LoadMoreBtn from './js/load-more-btn.js'; //! Импорт класса LoadMoreBtn Кнопки LOAD MORE
 
 // import API from './js/api-service.js';
 
@@ -16,6 +17,13 @@ const refs = getRefs(); //! Создаем объект всех ссылок re
 
 const pixabayApiService = new PixabayApiService(); //! Экземпляр класса PixabayApiService
 
+//! Экземпляр класса LoadMoreBtn = Кнопка LOAD MORE
+// const loadMoreBtn = new LoadMoreBtn({
+//     selector: '[data-action="load-more1"]',
+//     hidden: true,
+// });
+
+// console.log(loadMoreBtn);
 
 
 // https://pixabay.com/api/?key=28759369-3882e1068ac26fe18d14affeb&q=yellow+flowers&image_type=photo //! Example URL
@@ -32,6 +40,7 @@ refs.searchForm.addEventListener('submit', onFormSearch);
 
 //todo  Создаем слушателя событий на кнопке LOAD MORE:
 refs.loadMoreBtn.addEventListener('click', onLoadMore);
+// loadMoreBtn.refs.button.addEventListener('click', onLoadMore);
 
 
 //! +++++++++++++++++++++++++++++++++++ input form +++++++++++++++++++++++++++++++++++++++++++++++
