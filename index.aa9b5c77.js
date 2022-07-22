@@ -19,11 +19,13 @@ this.per_page=20}},v=new class{getRefs(t){const e={};return e.button=document.qu
 //! Вычисления по сокращенной схеме: 
 //!  если hidden = true, то вызови this.hide()
 e&&this.hide()}}({selector:'[data-action="load-more1"]',hidden:!0});//! Создаем объект всех ссылок refs.*
+//! Вызов библиотеки SimpleLightbox:
+new(e(c))(".gallery a",{captionPosition:"bottom",captionDelay:250,captionsData:"alt"});
+//! Формируем строку URL-запроса:
 function w(t){
 //!   Добавляем новую разметку в div-контейнер с помощью insertAdjacentHTML:
 x.imageCards.insertAdjacentHTML("beforeend",function(t){return t.map((({webformatURL:t,largeImageURL:e,tags:o,likes:n,views:i,comments:a,downloads:r})=>`\n                <div class="photo-card">\n                    <img class="img-card"\n                        src="${t}"\n                        alt=${o}\n                        loading="lazy" \n                        />\n                    <div class="info">\n                        <p class="info-item">\n                            <b>Likes</b>\n                            <b class="info-data">${n}</b>\n                        </p>\n                        <p class="info-item">\n                            <b>Views</b>\n                            <b class="info-data">${i}</b>\n                        </p>\n                        <p class="info-item">\n                            <b>Comments</b>\n                            <b class="info-data">${a}</b>\n                        </p>\n                        <p class="info-item">\n                            <b>Downloads</b>\n                            <b class="info-data">${r}</b>\n                        </p>\n                    </div>\n                </div>\n            `)).join("")}(t))}
 //!   Ф-ция, к-рая очищает контейнер при новом вводе данных в input form:
-//! Формируем строку URL-запроса:
 x.searchForm.addEventListener("submit",(//! NEW => через import LoadMoreBtn from './js/load-more-btn.js
 //! +++++++++++++++++++++++++++++++++++ input form +++++++++++++++++++++++++++++++++++++++++++++++
 //!  Ф-ция, к-рая прослушивает события на поле ввода данных - input form:
@@ -51,4 +53,4 @@ function(t){void 0===t[0]&&(e(l).Notify.failure("Sorry, there are no images matc
 function(t){t<=0&&(e(l).Notify.warning("We're sorry, but you've reached the end of search results.",{timeout:3e3}),v.hide())}(n),o))).then((t=>{w(t),v.enable()}//! Кнопка LOAD MORE => включаем
 ));//! Кнопка LOAD MORE => ВЫключаем
 }));
-//# sourceMappingURL=index.9a855f66.js.map
+//# sourceMappingURL=index.aa9b5c77.js.map
