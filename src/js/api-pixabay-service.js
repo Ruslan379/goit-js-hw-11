@@ -1,4 +1,4 @@
-// import Notiflix from 'notiflix';
+import axios from 'axios';
 
 //! Переменные для URL-запроса:
 const API_KEY = '28759369-3882e1068ac26fe18d14affeb';
@@ -18,8 +18,11 @@ export default class PixabayApiService {
         // console.log("this ДО: ", this); //!
         const url = `${BASE_URL}?key=${API_KEY}&q=${this.searchQuery}&image_type=photo&orientation=horizontal&safesearch=true&page=${this.page}&per_page=${this.per_page}`; //! with API_KEY
         //! Делаем fetch-запрос:
-        return fetch(url)
-            .then(response => response.json())
+        return axios.get(url) //! old = return fetch(url)
+            // .then(response => response.json()) //! old = для return fetch(url)
+            .then(response => {
+                return response.data;
+            })
             // .then(response => { console.log(response.hits); }) //!
             // .then(response => { console.log(response.totalHits); }) //!
 
