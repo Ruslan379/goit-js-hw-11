@@ -20,37 +20,41 @@ this.per_page=20}},v=new class{getRefs(t){const e={};return e.button=document.qu
 //!  если hidden = true, то вызови this.hide()
 e&&this.hide()}}({selector:'[data-action="load-more1"]',hidden:!0});//! Создаем объект всех ссылок refs.*
 //! Вызов библиотеки SimpleLightbox:
-new(e(c))(".gallery a",{captionPosition:"bottom",captionDelay:250,captionsData:"alt"});
+let w=new(e(c))(".gallery a");
 //! Формируем строку URL-запроса:
-function w(t){
+function k(t){
 //!   Добавляем новую разметку в div-контейнер с помощью insertAdjacentHTML:
-x.imageCards.insertAdjacentHTML("beforeend",function(t){return t.map((({webformatURL:t,largeImageURL:e,tags:o,likes:n,views:i,comments:a,downloads:r})=>`\n                <div class="photo-card">\n                    <img class="img-card"\n                        src="${t}"\n                        alt=${o}\n                        loading="lazy" \n                        />\n                    <div class="info">\n                        <p class="info-item">\n                            <b>Likes</b>\n                            <b class="info-data">${n}</b>\n                        </p>\n                        <p class="info-item">\n                            <b>Views</b>\n                            <b class="info-data">${i}</b>\n                        </p>\n                        <p class="info-item">\n                            <b>Comments</b>\n                            <b class="info-data">${a}</b>\n                        </p>\n                        <p class="info-item">\n                            <b>Downloads</b>\n                            <b class="info-data">${r}</b>\n                        </p>\n                    </div>\n                </div>\n            `)).join("")}(t))}
+x.imageCards.insertAdjacentHTML("beforeend",function(t){return t.map((({webformatURL:t,largeImageURL:e,tags:o,likes:n,views:i,comments:a,downloads:r})=>`\n                <div class="photo-card">\n                    <div>\n                        <a class="gallery__link" href="${e}">\n                            <img class="img-card"\n                                src="${t}"\n                                alt=${o}\n                                loading="lazy" \n                            />\n                        </a>\n                    </div>    \n                    <div class="info">\n                        <p class="info-item">\n                            <b>Likes</b>\n                            <b class="info-data">${n}</b>\n                        </p>\n                        <p class="info-item">\n                            <b>Views</b>\n                            <b class="info-data">${i}</b>\n                        </p>\n                        <p class="info-item">\n                            <b>Comments</b>\n                            <b class="info-data">${a}</b>\n                        </p>\n                        <p class="info-item">\n                            <b>Downloads</b>\n                            <b class="info-data">${r}</b>\n                        </p>\n                    </div>\n                </div>\n            `)).join("")}(t))}
 //!   Ф-ция, к-рая очищает контейнер при новом вводе данных в input form:
 x.searchForm.addEventListener("submit",(//! NEW => через import LoadMoreBtn from './js/load-more-btn.js
 //! +++++++++++++++++++++++++++++++++++ input form +++++++++++++++++++++++++++++++++++++++++++++++
 //!  Ф-ция, к-рая прослушивает события на поле ввода данных - input form:
 function(t){//!
 if(t.preventDefault(),console.log("Вешаю слушателя на поле ввода данных - input form"),//!
+//! Использование библиотеки SimpleLightbox:
+w.on("show.simplelightbox",(function(){})),w.refresh(),
 //! это то, что приходит в input и 
 //! записывается с помощью сетера класса PixabayApiService в переменную searchQuery
 b.query=t.currentTarget.elements.searchQuery.value.trim(),//! + убираем пробелы
 console.log("searchQuery: ",b.query),""===b.query)return alert("Поле ввода не долно быть пустым!");
 //! Кнопка LOAD MORE => показываем и отключаем
-v.show(),
+v.show(),v.disable(),
 //! Делаем сброс значения page = 1 после submit form 
 //! с помощью метода resetPage из класса PixabayApiService
 b.resetPage(),x.imageCards.innerHTML="",v.disable(),b.fetchHits().then((({totalHits:t,hits:o,endOfCollection:n})=>(
 //! ПРОВЕРКА hits на пустой массив 
 //! +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 function(t){void 0===t[0]&&(e(l).Notify.failure("Sorry, there are no images matching your search query. Please try again.",{timeout:3e3}),v.hide())}
-//! Ф-ция, к-рая проверяет hits ОКОНЧАНИЕ КОЛЛЕКЦИИ
-(o),function(t){t>0&&e(l).Notify.success(`Hooray! We found ${t} images.`,{timeout:3e3})}(t),o))).then((t=>{w(t),v.enable()}//! Кнопка LOAD MORE => включаем
+//! Ф-ция, к-рая проверяет hits на ОКОНЧАНИЕ КОЛЛЕКЦИИ
+(o),function(t){t>0&&e(l).Notify.success(`Hooray! We found ${t} images.`,{timeout:3e3})}(t),o))).then((t=>{k(t),v.enable()}//! Кнопка LOAD MORE => включаем
 ))}
 //! ++++++++++++++++++++++++++++++++ Кнопка LOAD MORE ++++++++++++++++++++++++++++++++++++++++++++
 //!  Ф-ция, к-рая прослушивает события на кнопке LOAD MORE:
-)),v.refs.button.addEventListener("click",(function(t){v.disable(),b.fetchHits().then((({totalHits:t,hits:o,endOfCollection:n})=>(
+)),v.refs.button.addEventListener("click",(function(t){v.disable(),
+//! Использование библиотеки SimpleLightbox:
+w.refresh(),b.fetchHits().then((({totalHits:t,hits:o,endOfCollection:n})=>(
 //!  Проверка hits на ОКОНЧАНИЕ КОЛЛЕКЦИИИ
-function(t){t<=0&&(e(l).Notify.warning("We're sorry, but you've reached the end of search results.",{timeout:3e3}),v.hide())}(n),o))).then((t=>{w(t),v.enable()}//! Кнопка LOAD MORE => включаем
+function(t){t<=0&&(e(l).Notify.warning("We're sorry, but you've reached the end of search results.",{timeout:3e3}),v.hide())}(n),o))).then((t=>{k(t),v.enable()}//! Кнопка LOAD MORE => включаем
 ));//! Кнопка LOAD MORE => ВЫключаем
 }));
-//# sourceMappingURL=index.aa9b5c77.js.map
+//# sourceMappingURL=index.6d1a6d19.js.map
