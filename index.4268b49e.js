@@ -27,6 +27,7 @@ function h(t){
 p.imageCards.insertAdjacentHTML("beforeend",function(t){return t.map((({webformatURL:t,largeImageURL:e,tags:o,likes:i,views:n,comments:a,downloads:s})=>`\n                <div class="photo-card">\n                    <img class="img-card"\n                        src="${t}"\n                        alt=${o}\n                        loading="lazy" \n                        />\n                    <div class="info">\n                        <p class="info-item">\n                            <b>Likes</b>\n                            <b class="info-data">${i}</b>\n                        </p>\n                        <p class="info-item">\n                            <b>Views</b>\n                            <b class="info-data">${n}</b>\n                        </p>\n                        <p class="info-item">\n                            <b>Comments</b>\n                            <b class="info-data">${a}</b>\n                        </p>\n                        <p class="info-item">\n                            <b>Downloads</b>\n                            <b class="info-data">${s}</b>\n                        </p>\n                    </div>\n                </div>\n            `)).join("")}(t))}
 //!   Ф-ция, к-рая очищает контейнер при новом вводе данных в input form:
 //! Экземпляр класса PixabayApiService
+//! Экземпляр класса LoadMoreBtn = Кнопка LOAD MORE
 //! Формируем строку URL-запроса:
 p.searchForm.addEventListener("submit",(
 //! +++++++++++++++++++++++++++++++++++ input form +++++++++++++++++++++++++++++++++++++++++++++++
@@ -52,4 +53,4 @@ function(e){void 0===e[0]&&t(n).Notify.failure("Sorry, there are no images match
 function(e){e<=0&&t(n).Notify.warning("We're sorry, but you've reached the end of search results.",{timeout:3e3})}(i),o))).then(h);
 //! Или так (old):
 }));
-//# sourceMappingURL=index.129da83a.js.map
+//# sourceMappingURL=index.4268b49e.js.map

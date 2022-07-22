@@ -29,6 +29,7 @@ function b(t){
 x.imageCards.insertAdjacentHTML("beforeend",function(t){return t.map((function(t){var e=t.webformatURL,o=(t.largeImageURL,t.tags),i=t.likes,n=t.views,a=t.comments,r=t.downloads;return'\n                <div class="photo-card">\n                    <img class="img-card"\n                        src="'.concat(e,'"\n                        alt=').concat(o,'\n                        loading="lazy" \n                        />\n                    <div class="info">\n                        <p class="info-item">\n                            <b>Likes</b>\n                            <b class="info-data">').concat(i,'</b>\n                        </p>\n                        <p class="info-item">\n                            <b>Views</b>\n                            <b class="info-data">').concat(n,'</b>\n                        </p>\n                        <p class="info-item">\n                            <b>Comments</b>\n                            <b class="info-data">').concat(a,'</b>\n                        </p>\n                        <p class="info-item">\n                            <b>Downloads</b>\n                            <b class="info-data">').concat(r,"</b>\n                        </p>\n                    </div>\n                </div>\n            ")})).join("")}(t))}
 //!   Ф-ция, к-рая очищает контейнер при новом вводе данных в input form:
 //! Экземпляр класса PixabayApiService
+//! Экземпляр класса LoadMoreBtn = Кнопка LOAD MORE
 //! Формируем строку URL-запроса:
 x.searchForm.addEventListener("submit",(
 //! +++++++++++++++++++++++++++++++++++ input form +++++++++++++++++++++++++++++++++++++++++++++++
@@ -55,4 +56,4 @@ return function(e){void 0===e[0]&&t(n).Notify.failure("Sorry, there are no image
 var o=e.hits;return function(e){e<=0&&t(n).Notify.warning("We're sorry, but you've reached the end of search results.",{timeout:3e3})}(e.endOfCollection),o})).then(b);
 //! Или так (old):
 }))}();
-//# sourceMappingURL=index.6b34009f.js.map
+//# sourceMappingURL=index.223a549c.js.map
