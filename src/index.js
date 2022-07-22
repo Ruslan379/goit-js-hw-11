@@ -28,6 +28,15 @@ const loadMoreBtn = new LoadMoreBtn({
 // loadMoreBtn.disable()
 
 
+//! Вызов библиотеки SimpleLightbox:
+let gallery = new SimpleLightbox('.gallery a', {
+    // caption: true,
+    captionPosition: 'bottom',
+    captionDelay: 250,
+    captionsData: "alt",
+});
+
+
 
 // https://pixabay.com/api/?key=28759369-3882e1068ac26fe18d14affeb&q=yellow+flowers&image_type=photo //! Example URL
 // fetch('https://pixabay.com/api/?key=28759369-3882e1068ac26fe18d14affeb&q=yellow+flowers&image_type=photo'); //! Example fetch-URL
