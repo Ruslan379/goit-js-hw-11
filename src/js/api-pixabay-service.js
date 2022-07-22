@@ -1,4 +1,4 @@
-import Notiflix from 'notiflix';
+// import Notiflix from 'notiflix';
 
 //! Переменные для URL-запроса:
 const API_KEY = '28759369-3882e1068ac26fe18d14affeb';
@@ -8,7 +8,7 @@ export default class PixabayApiService {
     constructor() {
         this.searchQuery = ""; //! это то, что приходит в input
         //! Пагинация:
-        this.page = 1; //! номер страници в fetch-запросе
+        this.page = 1; //! номер страницы (группы) в fetch-запросе
         this.per_page = 20; // по ТЗ надо 40
     }
 
