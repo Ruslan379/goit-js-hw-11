@@ -103,6 +103,7 @@ img {
 
 /* ! кнопка LOAD MORE */
 
+/* ! .button .label */
 .button {
   display: block;
   margin-left: auto;
@@ -115,4 +116,8 @@ img {
 
 .button>.spinner.is-hidden {
   display: none;
+}
+
+.load-more {
+  justify-content: center;
 }

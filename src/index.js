@@ -23,8 +23,8 @@ const loadMoreBtn = new LoadMoreBtn({
     hidden: true,
 });
 
-console.log(loadMoreBtn);
-loadMoreBtn.show()
+// console.log(loadMoreBtn);
+// loadMoreBtn.show()
 // loadMoreBtn.disable()
 
 
@@ -62,6 +62,10 @@ function onFormSearch(evt) {
         return alert("Поле ввода не долно быть пустым!");
     }
 
+    //! Кнопка LOAD MORE => показываем и отключаем
+    loadMoreBtn.show()
+    loadMoreBtn.disable()
+
     //! Делаем сброс значения page = 1 после submit form 
     //! с помощью метода resetPage из класса PixabayApiService
     pixabayApiService.resetPage()
@@ -80,10 +84,15 @@ function onFormSearch(evt) {
             //! ПРОВЕРКА hits на пустой массив 
             checkHitsForEmpty(hits)
 
+
             showsTotalHits(totalHits) //* Консолим свойство totalHits
             return hits
         })
-        .then(appendHitsMarkup); //* Рисование интерфейса выносим в отдельную ф-цию
+        // .then(appendHitsMarkup); // Рисование интерфейса выносим в отдельную ф-цию
+        .then(hits => {
+            appendHitsMarkup(hits); //* Рисование интерфейса выносим в отдельную ф-цию
+            loadMoreBtn.enable();  //! Кнопка LOAD MORE => включаем
+        });
 
     //! У Ж Е   НЕ   Н А Д О  !!!!
     //! Делаем fetch-запрос для получения totalHits
@@ -94,6 +103,7 @@ function onFormSearch(evt) {
 
 //!  Ф-ция, к-рая прослушивает события на кнопке LOAD MORE:
 function onLoadMore(evt) {
+    loadMoreBtn.disable() //! Кнопка LOAD MORE => ВЫключаем
 
     //? Делаем fetch-запрос с помощью метода .fetchHits из класса PixabayApiService
     pixabayApiService.fetchHits()
@@ -106,7 +116,11 @@ function onLoadMore(evt) {
 
             return hits
         })
-        .then(appendHitsMarkup); //* Рисование интерфейса выносим в отдельную ф-цию
+        // .then(appendHitsMarkup); // Рисование интерфейса выносим в отдельную ф-цию
+        .then(hits => {
+            appendHitsMarkup(hits); //* Рисование интерфейса выносим в отдельную ф-цию
+            loadMoreBtn.enable();  //! Кнопка LOAD MORE => включаем
+        });
     //! Или так (old):
     // pixabayApiService.fetchHits().
     //     then(hits => {
@@ -122,8 +136,10 @@ function onLoadMore(evt) {
 //?  Ф-ция, к-рая  прверяет hits на пустой массив:
 function checkHitsForEmpty(hits) {
     // console.log(hits[0]); //!
-    if (hits[0] === undefined)
+    if (hits[0] === undefined) {
         Notiflix.Notify.failure(`Sorry, there are no images matching your search query. Please try again.`, { timeout: 3000, },);
+        loadMoreBtn.disable();
+    }
 }
 
 
