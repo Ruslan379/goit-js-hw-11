@@ -43,7 +43,7 @@ function onFormSearch(evt) {
 
     //! это то, что приходит в input и 
     //! записывается с помощью сетера класса PixabayApiService в переменную searchQuery
-    pixabayApiService.query = evt.currentTarget.elements.searchQuery.value;
+    pixabayApiService.query = evt.currentTarget.elements.searchQuery.value.trim(); //! + убираем пробелы
     console.log("searchQuery: ", pixabayApiService.query); //!
 
     if (pixabayApiService.query === "") {
@@ -60,12 +60,23 @@ function onFormSearch(evt) {
 
     //? Делаем ОБЩИЙ fetch-запрос с помощью метода .fetchHits из класса PixabayApiService
     pixabayApiService.fetchHits()
+        .then(({ totalHits, hits, endOfCollection }) => {
+            // console.log("totalHits: ", totalHits); //!
+            // console.log("hits: ", hits); //!
+            // console.log("endOfCollection: ", endOfCollection); //!
+
+            //! ПРОВЕРКА hits на пустой массив 
+            checkHitsForEmpty(hits)
+
+            showsTotalHits(totalHits) //* Консолим свойство totalHits
+            return hits
+        })
         .then(appendHitsMarkup); //* Рисование интерфейса выносим в отдельную ф-цию
 
-
-    //! Делаем fetch-запрос для получения TotalHit
-    pixabayApiService.fetchTotalHits()
-        .then(showsTotalHits); //* Консолим свойство totalHits
+    //! У Ж Е   НЕ   Н А Д О  !!!!
+    //! Делаем fetch-запрос для получения totalHits
+    // pixabayApiService.fetchTotalHits()
+    //     .then(showsTotalHits); //* Консолим свойство totalHits
 }
 //! ++++++++++++++++++++++++++++++++ Кнопка LOAD MORE ++++++++++++++++++++++++++++++++++++++++++++
 
@@ -74,8 +85,17 @@ function onLoadMore(evt) {
 
     //? Делаем fetch-запрос с помощью метода .fetchHits из класса PixabayApiService
     pixabayApiService.fetchHits()
+        .then(({ totalHits, hits, endOfCollection }) => {
+            // console.log("totalHits: ", totalHits); //!
+            // console.log("hits: ", hits); //!
+
+            //!  Проверка hits на ОКОНЧАНИЕ КОЛЛЕКЦИИИ
+            checkHitsForEnd(endOfCollection)
+
+            return hits
+        })
         .then(appendHitsMarkup); //* Рисование интерфейса выносим в отдельную ф-цию
-    //! Или так:
+    //! Или так (old):
     // pixabayApiService.fetchHits().
     //     then(hits => {
     //     appendHitsMarkup(hits); // Рисование интерфейса выносим в отдельную ф-цию 
@@ -87,25 +107,39 @@ function onLoadMore(evt) {
 
 
 
-//*  Ф-ция-then, к-рая отрисовывает интерфейс ВСЕХ карточек на странице:
-function appendHitsMarkup(hits) {
-    //! ПРОВЕРКА hits на пустой массив:
-    checkHitsForEmpty(hits)
-    //!   Добавляем новую разметку в div-контейнер с помощью insertAdjacentHTML:
-    refs.imageCards.insertAdjacentHTML('beforeend', createImageCardsMarkup(hits));
-    // console.log(hits[0].largeImageURL); //! ссылка на большое изображение
-    // console.log(hits[0].largeImageURL); //! ссылка на большое изображение
-}
-
-
-
-
-//?  Ф-ция от appendHitsMarkup, к-рая  прверяет hits на пустой массив:
+//?  Ф-ция, к-рая  прверяет hits на пустой массив:
 function checkHitsForEmpty(hits) {
     // console.log(hits[0]); //!
     if (hits[0] === undefined)
         Notiflix.Notify.failure(`Sorry, there are no images matching your search query. Please try again.`, { timeout: 3000, },);
 }
+
+
+
+
+//! Ф-ция, к-рая проверяет hits ОКОНЧАНИЕ КОЛЛЕКЦИИ
+function checkHitsForEnd(endOfCollection) {
+    if (endOfCollection <= 0) {
+        Notiflix.Notify.warning(`We're sorry, but you've reached the end of search results.`, { timeout: 3000, },);
+        // спрятать кнопку LOAD MORE
+        // return
+    }
+}
+
+
+
+
+
+//todo  Ф-ция-then, к-рая отрисовывает интерфейс ВСЕХ карточек на странице:
+function appendHitsMarkup(hits) {
+    // // ! ПРОВЕРКА hits на пустой массив: (НЕ ЗДЕСЬ)
+    // checkHitsForEmpty(hits)
+    //!   Добавляем новую разметку в div-контейнер с помощью insertAdjacentHTML:
+    refs.imageCards.insertAdjacentHTML('beforeend', createImageCardsMarkup(hits));
+    // console.log(hits[0].largeImageURL); //! ссылка на большое изображение
+
+}
+
 
 
 
@@ -125,7 +159,7 @@ function showsTotalHits(totalHits) {
 
 
 
-//?   Ф-ция, к-рая создает новую разметку для ОДНОЙ карточки:
+//todo   Ф-ция, к-рая создает новую разметку для ОДНОЙ карточки:
 function createImageCardsMarkup(hits) {
     return hits
         .map(({ webformatURL, largeImageURL, tags, likes, views, comments, downloads }) => {
@@ -139,19 +173,19 @@ function createImageCardsMarkup(hits) {
                     <div class="info">
                         <p class="info-item">
                             <b>Likes</b>
-                            <b>${likes}</b>
+                            <b class="info-data">${likes}</b>
                         </p>
                         <p class="info-item">
                             <b>Views</b>
-                            <b>${views}</b>
+                            <b class="info-data">${views}</b>
                         </p>
                         <p class="info-item">
                             <b>Comments</b>
-                            <b>${comments}</b>
+                            <b class="info-data">${comments}</b>
                         </p>
                         <p class="info-item">
                             <b>Downloads</b>
-                            <b>${downloads}</b>
+                            <b class="info-data">${downloads}</b>
                         </p>
                     </div>
                 </div>

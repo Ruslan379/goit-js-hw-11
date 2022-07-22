@@ -43,6 +43,14 @@ img {
   /* padding: 8px; */
   /* margin-bottom: 24px; */
 }
+
+/* ! .info-data */
+.info-data {
+  font-weight: normal;
+  font-size: 16px;
+  color: rgb(179, 0, 0);
+}
+
 .info-item {
   display: block;
   /* justify-content: center; */
