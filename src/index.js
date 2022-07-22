@@ -23,7 +23,10 @@ const loadMoreBtn = new LoadMoreBtn({
     hidden: true,
 });
 
-// console.log(loadMoreBtn);
+console.log(loadMoreBtn);
+loadMoreBtn.show()
+// loadMoreBtn.disable()
+
 
 
 // https://pixabay.com/api/?key=28759369-3882e1068ac26fe18d14affeb&q=yellow+flowers&image_type=photo //! Example URL
@@ -39,8 +42,8 @@ const loadMoreBtn = new LoadMoreBtn({
 refs.searchForm.addEventListener('submit', onFormSearch);
 
 //todo  Создаем слушателя событий на кнопке LOAD MORE:
-// refs.loadMoreBtn.addEventListener('click', onLoadMore); //! OLD
-loadMoreBtn.refs.button.addEventListener('click', onLoadMore);
+// refs.loadMoreBtn.addEventListener('click', onLoadMore); //! OLD => через import getRefs from './js/get-refs.js'
+loadMoreBtn.refs.button.addEventListener('click', onLoadMore); //! NEW => через import LoadMoreBtn from './js/load-more-btn.js
 
 
 //! +++++++++++++++++++++++++++++++++++ input form +++++++++++++++++++++++++++++++++++++++++++++++

@@ -2,6 +2,9 @@ export default class LoadMoreBtn {
   constructor({ selector, hidden = false }) {
     this.refs = this.getRefs(selector);
 
+
+    //! Вычисления по сокращенной схеме: 
+    //!  если hidden = true, то вызови this.hide()
     hidden && this.hide();
   }
 
@@ -16,13 +19,13 @@ export default class LoadMoreBtn {
 
   enable() {
     this.refs.button.disabled = false;
-    this.refs.label.textContent = 'Показать ещё';
+    this.refs.label.textContent = 'Show more';
     this.refs.spinner.classList.add('is-hidden');
   }
 
   disable() {
     this.refs.button.disabled = true;
-    this.refs.label.textContent = 'Загружаем...';
+    this.refs.label.textContent = 'Loading...';
     this.refs.spinner.classList.remove('is-hidden');
   }
 

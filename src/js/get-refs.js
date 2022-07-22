@@ -7,7 +7,7 @@ export default function getRefs() {
     imageCards: document.querySelector('.gallery'),
 
     //todo Получаем ссылку на кнопку LOAD MORE:
-    // loadMoreBtn: document.querySelector('.load-more'),
+    // loadMoreBtn: document.querySelector('.load-more'), //! OLD
   };
 }
 
