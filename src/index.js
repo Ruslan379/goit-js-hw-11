@@ -64,7 +64,7 @@ function onFormSearch(evt) {
 
     //! Кнопка LOAD MORE => показываем и отключаем
     loadMoreBtn.show()
-    loadMoreBtn.disable()
+    // loadMoreBtn.disable()
 
     //! Делаем сброс значения page = 1 после submit form 
     //! с помощью метода resetPage из класса PixabayApiService
@@ -73,7 +73,7 @@ function onFormSearch(evt) {
     //! Очищаем контейнер при новом вводе данных в input form:
     clearHitsContainer()
 
-
+    loadMoreBtn.disable()
     //? Делаем ОБЩИЙ fetch-запрос с помощью метода .fetchHits из класса PixabayApiService
     pixabayApiService.fetchHits()
         .then(({ totalHits, hits, endOfCollection }) => {
@@ -83,7 +83,6 @@ function onFormSearch(evt) {
 
             //! ПРОВЕРКА hits на пустой массив 
             checkHitsForEmpty(hits)
-
 
             showsTotalHits(totalHits) //* Консолим свойство totalHits
             return hits
@@ -97,7 +96,7 @@ function onFormSearch(evt) {
     //! У Ж Е   НЕ   Н А Д О  !!!!
     //! Делаем fetch-запрос для получения totalHits
     // pixabayApiService.fetchTotalHits()
-    //     .then(showsTotalHits); //* Консолим свойство totalHits
+    //     .then(showsTotalHits); // Консолим свойство totalHits
 }
 //! ++++++++++++++++++++++++++++++++ Кнопка LOAD MORE ++++++++++++++++++++++++++++++++++++++++++++
 
@@ -113,7 +112,6 @@ function onLoadMore(evt) {
 
             //!  Проверка hits на ОКОНЧАНИЕ КОЛЛЕКЦИИИ
             checkHitsForEnd(endOfCollection)
-
             return hits
         })
         // .then(appendHitsMarkup); // Рисование интерфейса выносим в отдельную ф-цию
@@ -121,12 +119,6 @@ function onLoadMore(evt) {
             appendHitsMarkup(hits); //* Рисование интерфейса выносим в отдельную ф-цию
             loadMoreBtn.enable();  //! Кнопка LOAD MORE => включаем
         });
-    //! Или так (old):
-    // pixabayApiService.fetchHits().
-    //     then(hits => {
-    //     appendHitsMarkup(hits); // Рисование интерфейса выносим в отдельную ф-цию 
-    // });
-
 }
 //! +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -138,7 +130,7 @@ function checkHitsForEmpty(hits) {
     // console.log(hits[0]); //!
     if (hits[0] === undefined) {
         Notiflix.Notify.failure(`Sorry, there are no images matching your search query. Please try again.`, { timeout: 3000, },);
-        loadMoreBtn.disable();
+        loadMoreBtn.hide(); //! Кнопка LOAD MORE => ПРЯЧЕМ
     }
 }
 
@@ -149,8 +141,7 @@ function checkHitsForEmpty(hits) {
 function checkHitsForEnd(endOfCollection) {
     if (endOfCollection <= 0) {
         Notiflix.Notify.warning(`We're sorry, but you've reached the end of search results.`, { timeout: 3000, },);
-        // спрятать кнопку LOAD MORE
-        // return
+        loadMoreBtn.hide(); //! Кнопка LOAD MORE => ПРЯЧЕМ
     }
 }
 
