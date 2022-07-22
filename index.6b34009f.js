@@ -8,7 +8,7 @@
 //! Переменные для URL-запроса:
 Object.defineProperty(u,"__esModule",{value:!0}),u.default=function(t,e,o){e&&h(t.prototype,e);o&&h(t,o);return t};var g=function(){"use strict";function e(){t(p)(this,e),this.searchQuery="",//! это то, что приходит в input
 //! Пагинация:
-this.page=1,//! номер страници в fetch-запросе
+this.page=1,//! номер страницы (группы) в fetch-запросе
 this.per_page=20}return t(u)(e,[{
 //! Ф-ция делает ОБЩИЙ fetch-запрос:
 key:"fetchHits",value:function(){var t=this,e="".concat("https://pixabay.com/api/","?key=").concat("28759369-3882e1068ac26fe18d14affeb","&q=").concat(this.searchQuery,"&image_type=photo&orientation=horizontal&safesearch=true&page=").concat(this.page,"&per_page=").concat(this.per_page);//! with API_KEY
@@ -55,4 +55,4 @@ return function(e){void 0===e[0]&&t(n).Notify.failure("Sorry, there are no image
 var o=e.hits;return function(e){e<=0&&t(n).Notify.warning("We're sorry, but you've reached the end of search results.",{timeout:3e3})}(e.endOfCollection),o})).then(b);
 //! Или так (old):
 }))}();
-//# sourceMappingURL=index.26175a8a.js.map
+//# sourceMappingURL=index.6b34009f.js.map

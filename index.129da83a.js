@@ -20,7 +20,7 @@ return console.log("all: ",i),i}))}
 //! Ф-ция делает fetch-запрос для получения TotalHit:
 incrementPage(){this.page+=1}resetPage(){this.page=1}get query(){return this.searchQuery}set query(t){this.searchQuery=t}constructor(){this.searchQuery="",//! это то, что приходит в input
 //! Пагинация:
-this.page=1,//! номер страници в fetch-запросе
+this.page=1,//! номер страницы (группы) в fetch-запросе
 this.per_page=20}};//! Создаем объект всех ссылок refs.*
 function h(t){
 //!   Добавляем новую разметку в div-контейнер с помощью insertAdjacentHTML:
@@ -52,4 +52,4 @@ function(e){void 0===e[0]&&t(n).Notify.failure("Sorry, there are no images match
 function(e){e<=0&&t(n).Notify.warning("We're sorry, but you've reached the end of search results.",{timeout:3e3})}(i),o))).then(h);
 //! Или так (old):
 }));
-//# sourceMappingURL=index.0876cf0f.js.map
+//# sourceMappingURL=index.129da83a.js.map
