@@ -26,11 +26,10 @@ return console.log("all: ",a),a}))}},{
 key:"incrementPage",value:function(){this.page+=1}},{key:"resetPage",value:function(){this.page=1}},{key:"query",get:function(){return this.searchQuery},set:function(t){this.searchQuery=t}}]),e}();var x=function(){"use strict";function e(o){var i=o.selector,n=o.hidden,a=void 0!==n&&n;t(p)(this,e),this.refs=this.getRefs(i),
 //! Вычисления по сокращенной схеме: 
 //!  если hidden = true, то вызови this.hide()
-a&&this.hide()}return t(u)(e,[{key:"getRefs",value:function(t){var e={};return e.button=document.querySelector(t),e.label=e.button.querySelector(".label"),e.spinner=e.button.querySelector(".spinner"),e}},{key:"enable",value:function(){this.refs.button.disabled=!1,this.refs.label.textContent="Show more",this.refs.spinner.classList.add("is-hidden")}},{key:"disable",value:function(){this.refs.button.disabled=!0,this.refs.label.textContent="Loading...",this.refs.spinner.classList.remove("is-hidden")}},{key:"show",value:function(){this.refs.button.classList.remove("is-hidden")}},{key:"hide",value:function(){this.refs.button.classList.add("is-hidden")}}]),e}(),y={searchForm:document.querySelector("#search-form"),imageCards:document.querySelector(".gallery")},b=new g,v=new x({selector:'[data-action="load-more1"]',hidden:!0});function w(t){
+a&&this.hide()}return t(u)(e,[{key:"getRefs",value:function(t){var e={};return e.button=document.querySelector(t),e.label=e.button.querySelector(".label"),e.spinner=e.button.querySelector(".spinner"),e}},{key:"enable",value:function(){this.refs.button.disabled=!1,this.refs.label.textContent="LOAD MORE",this.refs.spinner.classList.add("is-hidden")}},{key:"disable",value:function(){this.refs.button.disabled=!0,this.refs.label.textContent="Loading...",this.refs.spinner.classList.remove("is-hidden")}},{key:"show",value:function(){this.refs.button.classList.remove("is-hidden")}},{key:"hide",value:function(){this.refs.button.classList.add("is-hidden")}}]),e}(),y={searchForm:document.querySelector("#search-form"),imageCards:document.querySelector(".gallery")},b=new g,v=new x({selector:'[data-action="load-more1"]',hidden:!0});function w(t){
 //!   Добавляем новую разметку в div-контейнер с помощью insertAdjacentHTML:
 y.imageCards.insertAdjacentHTML("beforeend",function(t){return t.map((function(t){var e=t.webformatURL,o=(t.largeImageURL,t.tags),i=t.likes,n=t.views,a=t.comments,s=t.downloads;return'\n                <div class="photo-card">\n                    <img class="img-card"\n                        src="'.concat(e,'"\n                        alt=').concat(o,'\n                        loading="lazy" \n                        />\n                    <div class="info">\n                        <p class="info-item">\n                            <b>Likes</b>\n                            <b class="info-data">').concat(i,'</b>\n                        </p>\n                        <p class="info-item">\n                            <b>Views</b>\n                            <b class="info-data">').concat(n,'</b>\n                        </p>\n                        <p class="info-item">\n                            <b>Comments</b>\n                            <b class="info-data">').concat(a,'</b>\n                        </p>\n                        <p class="info-item">\n                            <b>Downloads</b>\n                            <b class="info-data">').concat(s,"</b>\n                        </p>\n                    </div>\n                </div>\n            ")})).join("")}(t))}
 //!   Ф-ция, к-рая очищает контейнер при новом вводе данных в input form:
-console.log(v),v.show(),
 //! Формируем строку URL-запроса:
 y.searchForm.addEventListener("submit",(//! NEW => через import LoadMoreBtn from './js/load-more-btn.js
 //! +++++++++++++++++++++++++++++++++++ input form +++++++++++++++++++++++++++++++++++++++++++++++
@@ -41,20 +40,21 @@ if(e.preventDefault(),console.log("Вешаю слушателя на поле �
 //! записывается с помощью сетера класса PixabayApiService в переменную searchQuery
 b.query=e.currentTarget.elements.searchQuery.value.trim(),//! + убираем пробелы
 console.log("searchQuery: ",b.query),""===b.query)return alert("Поле ввода не долно быть пустым!");
+//! Кнопка LOAD MORE => показываем и отключаем
+v.show(),v.disable(),
 //! Делаем сброс значения page = 1 после submit form 
 //! с помощью метода resetPage из класса PixabayApiService
 b.resetPage(),y.imageCards.innerHTML="",b.fetchHits().then((function(e){var o=e.totalHits,i=e.hits;
 //! ПРОВЕРКА hits на пустой массив 
 e.endOfCollection;
 //! +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-return function(e){void 0===e[0]&&t(n).Notify.failure("Sorry, there are no images matching your search query. Please try again.",{timeout:3e3})}
+return function(e){void 0===e[0]&&(t(n).Notify.failure("Sorry, there are no images matching your search query. Please try again.",{timeout:3e3}),v.disable())}
 //! Ф-ция, к-рая проверяет hits ОКОНЧАНИЕ КОЛЛЕКЦИИ
-(i),function(e){e>0&&t(n).Notify.success("Hooray! We found ".concat(e," images."),{timeout:3e3})}(o),i})).then(w)}
+(i),function(e){e>0&&t(n).Notify.success("Hooray! We found ".concat(e," images."),{timeout:3e3})}(o),i})).then((function(t){w(t),v.enable()}))}
 //! ++++++++++++++++++++++++++++++++ Кнопка LOAD MORE ++++++++++++++++++++++++++++++++++++++++++++
 //!  Ф-ция, к-рая прослушивает события на кнопке LOAD MORE:
-)),v.refs.button.addEventListener("click",(function(e){b.fetchHits().then((function(e){e.totalHits;
+)),v.refs.button.addEventListener("click",(function(e){v.disable(),b.fetchHits().then((function(e){e.totalHits;
 //!  Проверка hits на ОКОНЧАНИЕ КОЛЛЕКЦИИИ
-var o=e.hits;return function(e){e<=0&&t(n).Notify.warning("We're sorry, but you've reached the end of search results.",{timeout:3e3})}(e.endOfCollection),o})).then(w);
-//! Или так (old):
+var o=e.hits;return function(e){e<=0&&t(n).Notify.warning("We're sorry, but you've reached the end of search results.",{timeout:3e3})}(e.endOfCollection),o})).then((function(t){w(t),v.enable()}));//! Кнопка LOAD MORE => ВЫключаем
 }))}();
-//# sourceMappingURL=index.5f717211.js.map
+//# sourceMappingURL=index.993bf2a7.js.map

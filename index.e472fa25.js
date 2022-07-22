@@ -21,7 +21,7 @@ return console.log("all: ",i),i}))}
 incrementPage(){this.page+=1}resetPage(){this.page=1}get query(){return this.searchQuery}set query(t){this.searchQuery=t}constructor(){this.searchQuery="",//! это то, что приходит в input
 //! Пагинация:
 this.page=1,//! номер страницы (группы) в fetch-запросе
-this.per_page=20}},h=new class{getRefs(t){const e={};return e.button=document.querySelector(t),e.label=e.button.querySelector(".label"),e.spinner=e.button.querySelector(".spinner"),e}enable(){this.refs.button.disabled=!1,this.refs.label.textContent="Show more",this.refs.spinner.classList.add("is-hidden")}disable(){this.refs.button.disabled=!0,this.refs.label.textContent="Loading...",this.refs.spinner.classList.remove("is-hidden")}show(){this.refs.button.classList.remove("is-hidden")}hide(){this.refs.button.classList.add("is-hidden")}constructor({selector:t,hidden:e=!1}){this.refs=this.getRefs(t),
+this.per_page=20}},h=new class{getRefs(t){const e={};return e.button=document.querySelector(t),e.label=e.button.querySelector(".label"),e.spinner=e.button.querySelector(".spinner"),e}enable(){this.refs.button.disabled=!1,this.refs.label.textContent="LOAD MORE",this.refs.spinner.classList.add("is-hidden")}disable(){this.refs.button.disabled=!0,this.refs.label.textContent="Loading...",this.refs.spinner.classList.remove("is-hidden")}show(){this.refs.button.classList.remove("is-hidden")}hide(){this.refs.button.classList.add("is-hidden")}constructor({selector:t,hidden:e=!1}){this.refs=this.getRefs(t),
 //! Вычисления по сокращенной схеме: 
 //!  если hidden = true, то вызови this.hide()
 e&&this.hide()}}({selector:'[data-action="load-more1"]',hidden:!0});//! Создаем объект всех ссылок refs.*
@@ -29,7 +29,6 @@ function g(t){
 //!   Добавляем новую разметку в div-контейнер с помощью insertAdjacentHTML:
 p.imageCards.insertAdjacentHTML("beforeend",function(t){return t.map((({webformatURL:t,largeImageURL:e,tags:o,likes:i,views:n,comments:a,downloads:s})=>`\n                <div class="photo-card">\n                    <img class="img-card"\n                        src="${t}"\n                        alt=${o}\n                        loading="lazy" \n                        />\n                    <div class="info">\n                        <p class="info-item">\n                            <b>Likes</b>\n                            <b class="info-data">${i}</b>\n                        </p>\n                        <p class="info-item">\n                            <b>Views</b>\n                            <b class="info-data">${n}</b>\n                        </p>\n                        <p class="info-item">\n                            <b>Comments</b>\n                            <b class="info-data">${a}</b>\n                        </p>\n                        <p class="info-item">\n                            <b>Downloads</b>\n                            <b class="info-data">${s}</b>\n                        </p>\n                    </div>\n                </div>\n            `)).join("")}(t))}
 //!   Ф-ция, к-рая очищает контейнер при новом вводе данных в input form:
-console.log(h),h.show(),
 //! Формируем строку URL-запроса:
 p.searchForm.addEventListener("submit",(//! NEW => через import LoadMoreBtn from './js/load-more-btn.js
 //! +++++++++++++++++++++++++++++++++++ input form +++++++++++++++++++++++++++++++++++++++++++++++
@@ -40,19 +39,22 @@ if(e.preventDefault(),console.log("Вешаю слушателя на поле �
 //! записывается с помощью сетера класса PixabayApiService в переменную searchQuery
 u.query=e.currentTarget.elements.searchQuery.value.trim(),//! + убираем пробелы
 console.log("searchQuery: ",u.query),""===u.query)return alert("Поле ввода не долно быть пустым!");
+//! Кнопка LOAD MORE => показываем и отключаем
+h.show(),h.disable(),
 //! Делаем сброс значения page = 1 после submit form 
 //! с помощью метода resetPage из класса PixabayApiService
 u.resetPage(),p.imageCards.innerHTML="",u.fetchHits().then((({totalHits:e,hits:o,endOfCollection:i})=>(
 //! ПРОВЕРКА hits на пустой массив 
 //! +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-function(e){void 0===e[0]&&t(n).Notify.failure("Sorry, there are no images matching your search query. Please try again.",{timeout:3e3})}
+function(e){void 0===e[0]&&(t(n).Notify.failure("Sorry, there are no images matching your search query. Please try again.",{timeout:3e3}),h.disable())}
 //! Ф-ция, к-рая проверяет hits ОКОНЧАНИЕ КОЛЛЕКЦИИ
-(o),function(e){e>0&&t(n).Notify.success(`Hooray! We found ${e} images.`,{timeout:3e3})}(e),o))).then(g)}
+(o),function(e){e>0&&t(n).Notify.success(`Hooray! We found ${e} images.`,{timeout:3e3})}(e),o))).then((t=>{g(t),h.enable()}//! Кнопка LOAD MORE => включаем
+))}
 //! ++++++++++++++++++++++++++++++++ Кнопка LOAD MORE ++++++++++++++++++++++++++++++++++++++++++++
 //!  Ф-ция, к-рая прослушивает события на кнопке LOAD MORE:
-)),h.refs.button.addEventListener("click",(function(e){u.fetchHits().then((({totalHits:e,hits:o,endOfCollection:i})=>(
+)),h.refs.button.addEventListener("click",(function(e){h.disable(),u.fetchHits().then((({totalHits:e,hits:o,endOfCollection:i})=>(
 //!  Проверка hits на ОКОНЧАНИЕ КОЛЛЕКЦИИИ
-function(e){e<=0&&t(n).Notify.warning("We're sorry, but you've reached the end of search results.",{timeout:3e3})}(i),o))).then(g);
-//! Или так (old):
+function(e){e<=0&&t(n).Notify.warning("We're sorry, but you've reached the end of search results.",{timeout:3e3})}(i),o))).then((t=>{g(t),h.enable()}//! Кнопка LOAD MORE => включаем
+));//! Кнопка LOAD MORE => ВЫключаем
 }));
-//# sourceMappingURL=index.d0cc6d38.js.map
+//# sourceMappingURL=index.e472fa25.js.map
