@@ -40,13 +40,13 @@ if(e.preventDefault(),console.log("Вешаю слушателя на поле �
 u.query=e.currentTarget.elements.searchQuery.value.trim(),//! + убираем пробелы
 console.log("searchQuery: ",u.query),""===u.query)return alert("Поле ввода не долно быть пустым!");
 //! Кнопка LOAD MORE => показываем и отключаем
-h.show(),h.disable(),
+h.show(),
 //! Делаем сброс значения page = 1 после submit form 
 //! с помощью метода resetPage из класса PixabayApiService
-u.resetPage(),p.imageCards.innerHTML="",u.fetchHits().then((({totalHits:e,hits:o,endOfCollection:i})=>(
+u.resetPage(),p.imageCards.innerHTML="",h.disable(),u.fetchHits().then((({totalHits:e,hits:o,endOfCollection:i})=>(
 //! ПРОВЕРКА hits на пустой массив 
 //! +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-function(e){void 0===e[0]&&(t(n).Notify.failure("Sorry, there are no images matching your search query. Please try again.",{timeout:3e3}),h.disable())}
+function(e){void 0===e[0]&&(t(n).Notify.failure("Sorry, there are no images matching your search query. Please try again.",{timeout:3e3}),h.hide())}
 //! Ф-ция, к-рая проверяет hits ОКОНЧАНИЕ КОЛЛЕКЦИИ
 (o),function(e){e>0&&t(n).Notify.success(`Hooray! We found ${e} images.`,{timeout:3e3})}(e),o))).then((t=>{g(t),h.enable()}//! Кнопка LOAD MORE => включаем
 ))}
@@ -54,7 +54,7 @@ function(e){void 0===e[0]&&(t(n).Notify.failure("Sorry, there are no images matc
 //!  Ф-ция, к-рая прослушивает события на кнопке LOAD MORE:
 )),h.refs.button.addEventListener("click",(function(e){h.disable(),u.fetchHits().then((({totalHits:e,hits:o,endOfCollection:i})=>(
 //!  Проверка hits на ОКОНЧАНИЕ КОЛЛЕКЦИИИ
-function(e){e<=0&&t(n).Notify.warning("We're sorry, but you've reached the end of search results.",{timeout:3e3})}(i),o))).then((t=>{g(t),h.enable()}//! Кнопка LOAD MORE => включаем
+function(e){e<=0&&(t(n).Notify.warning("We're sorry, but you've reached the end of search results.",{timeout:3e3}),h.hide())}(i),o))).then((t=>{g(t),h.enable()}//! Кнопка LOAD MORE => включаем
 ));//! Кнопка LOAD MORE => ВЫключаем
 }));
-//# sourceMappingURL=index.e472fa25.js.map
+//# sourceMappingURL=index.695f19e6.js.map

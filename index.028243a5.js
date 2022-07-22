@@ -41,20 +41,20 @@ if(e.preventDefault(),console.log("Вешаю слушателя на поле �
 b.query=e.currentTarget.elements.searchQuery.value.trim(),//! + убираем пробелы
 console.log("searchQuery: ",b.query),""===b.query)return alert("Поле ввода не долно быть пустым!");
 //! Кнопка LOAD MORE => показываем и отключаем
-v.show(),v.disable(),
+v.show(),
 //! Делаем сброс значения page = 1 после submit form 
 //! с помощью метода resetPage из класса PixabayApiService
-b.resetPage(),y.imageCards.innerHTML="",b.fetchHits().then((function(e){var o=e.totalHits,i=e.hits;
+b.resetPage(),y.imageCards.innerHTML="",v.disable(),b.fetchHits().then((function(e){var o=e.totalHits,i=e.hits;
 //! ПРОВЕРКА hits на пустой массив 
 e.endOfCollection;
 //! +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-return function(e){void 0===e[0]&&(t(n).Notify.failure("Sorry, there are no images matching your search query. Please try again.",{timeout:3e3}),v.disable())}
+return function(e){void 0===e[0]&&(t(n).Notify.failure("Sorry, there are no images matching your search query. Please try again.",{timeout:3e3}),v.hide())}
 //! Ф-ция, к-рая проверяет hits ОКОНЧАНИЕ КОЛЛЕКЦИИ
 (i),function(e){e>0&&t(n).Notify.success("Hooray! We found ".concat(e," images."),{timeout:3e3})}(o),i})).then((function(t){w(t),v.enable()}))}
 //! ++++++++++++++++++++++++++++++++ Кнопка LOAD MORE ++++++++++++++++++++++++++++++++++++++++++++
 //!  Ф-ция, к-рая прослушивает события на кнопке LOAD MORE:
 )),v.refs.button.addEventListener("click",(function(e){v.disable(),b.fetchHits().then((function(e){e.totalHits;
 //!  Проверка hits на ОКОНЧАНИЕ КОЛЛЕКЦИИИ
-var o=e.hits;return function(e){e<=0&&t(n).Notify.warning("We're sorry, but you've reached the end of search results.",{timeout:3e3})}(e.endOfCollection),o})).then((function(t){w(t),v.enable()}));//! Кнопка LOAD MORE => ВЫключаем
+var o=e.hits;return function(e){e<=0&&(t(n).Notify.warning("We're sorry, but you've reached the end of search results.",{timeout:3e3}),v.hide())}(e.endOfCollection),o})).then((function(t){w(t),v.enable()}));//! Кнопка LOAD MORE => ВЫключаем
 }))}();
-//# sourceMappingURL=index.993bf2a7.js.map
+//# sourceMappingURL=index.028243a5.js.map
