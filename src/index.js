@@ -29,12 +29,13 @@ const loadMoreBtn = new LoadMoreBtn({
 
 
 //! Вызов библиотеки SimpleLightbox:
-let gallery = new SimpleLightbox('.gallery a', {
-    // caption: true,
-    captionPosition: 'bottom',
-    captionDelay: 250,
-    captionsData: "alt",
-});
+let gallery = new SimpleLightbox('.gallery a');
+// let gallery = new SimpleLightbox('.gallery a', {
+//     // caption: true,
+//     captionPosition: 'bottom',
+//     captionDelay: 250,
+//     captionsData: "alt",
+// });
 
 
 
@@ -62,6 +63,11 @@ function onFormSearch(evt) {
     evt.preventDefault();
     console.log("Вешаю слушателя на поле ввода данных - input form"); //!
 
+    //! Использование библиотеки SimpleLightbox:
+    gallery.on('show.simplelightbox', function () {
+    });
+    gallery.refresh();
+
     //! это то, что приходит в input и 
     //! записывается с помощью сетера класса PixabayApiService в переменную searchQuery
     pixabayApiService.query = evt.currentTarget.elements.searchQuery.value.trim(); //! + убираем пробелы
@@ -73,7 +79,7 @@ function onFormSearch(evt) {
 
     //! Кнопка LOAD MORE => показываем и отключаем
     loadMoreBtn.show()
-    // loadMoreBtn.disable()
+    loadMoreBtn.disable()
 
     //! Делаем сброс значения page = 1 после submit form 
     //! с помощью метода resetPage из класса PixabayApiService
@@ -102,8 +108,8 @@ function onFormSearch(evt) {
             loadMoreBtn.enable();  //! Кнопка LOAD MORE => включаем
         });
 
-    //! У Ж Е   НЕ   Н А Д О  !!!!
-    //! Делаем fetch-запрос для получения totalHits
+    // У Ж Е   НЕ   Н А Д О  !!!!
+    // Делаем fetch-запрос для получения totalHits
     // pixabayApiService.fetchTotalHits()
     //     .then(showsTotalHits); // Консолим свойство totalHits
 }
@@ -112,6 +118,12 @@ function onFormSearch(evt) {
 //!  Ф-ция, к-рая прослушивает события на кнопке LOAD MORE:
 function onLoadMore(evt) {
     loadMoreBtn.disable() //! Кнопка LOAD MORE => ВЫключаем
+
+    //! Использование библиотеки SimpleLightbox:
+    // gallery.on('show.simplelightbox', function () {
+    // });
+    gallery.refresh();
+
 
     //? Делаем fetch-запрос с помощью метода .fetchHits из класса PixabayApiService
     pixabayApiService.fetchHits()
@@ -128,6 +140,10 @@ function onLoadMore(evt) {
             appendHitsMarkup(hits); //* Рисование интерфейса выносим в отдельную ф-цию
             loadMoreBtn.enable();  //! Кнопка LOAD MORE => включаем
         });
+
+
+
+
 }
 //! +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -146,7 +162,7 @@ function checkHitsForEmpty(hits) {
 
 
 
-//! Ф-ция, к-рая проверяет hits ОКОНЧАНИЕ КОЛЛЕКЦИИ
+//! Ф-ция, к-рая проверяет hits на ОКОНЧАНИЕ КОЛЛЕКЦИИ
 function checkHitsForEnd(endOfCollection) {
     if (endOfCollection <= 0) {
         Notiflix.Notify.warning(`We're sorry, but you've reached the end of search results.`, { timeout: 3000, },);
@@ -193,11 +209,15 @@ function createImageCardsMarkup(hits) {
         .map(({ webformatURL, largeImageURL, tags, likes, views, comments, downloads }) => {
             return `
                 <div class="photo-card">
-                    <img class="img-card"
-                        src="${webformatURL}"
-                        alt=${tags}
-                        loading="lazy" 
-                        />
+                    <div>
+                        <a class="gallery__link" href="${largeImageURL}">
+                            <img class="img-card"
+                                src="${webformatURL}"
+                                alt=${tags}
+                                loading="lazy" 
+                            />
+                        </a>
+                    </div>    
                     <div class="info">
                         <p class="info-item">
                             <b>Likes</b>
