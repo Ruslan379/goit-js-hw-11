@@ -29,7 +29,8 @@ const loadMoreBtn = new LoadMoreBtn({
 
 
 //! Вызов библиотеки SimpleLightbox:
-let gallery = new SimpleLightbox('.gallery a');
+// let gallery = new SimpleLightbox('.gallery a');
+
 // let gallery = new SimpleLightbox('.gallery a', {
 //     // caption: true,
 //     captionPosition: 'bottom',
@@ -63,10 +64,7 @@ function onFormSearch(evt) {
     evt.preventDefault();
     console.log("Вешаю слушателя на поле ввода данных - input form"); //!
 
-    //! Использование библиотеки SimpleLightbox:
-    gallery.on('show.simplelightbox', function () {
-    });
-    gallery.refresh();
+
 
     //! это то, что приходит в input и 
     //! записывается с помощью сетера класса PixabayApiService в переменную searchQuery
@@ -108,6 +106,14 @@ function onFormSearch(evt) {
             loadMoreBtn.enable();  //! Кнопка LOAD MORE => включаем
         });
 
+    //! Использование библиотеки SimpleLightbox:
+    // gallery.refresh();
+    // // gallery.open();
+    // gallery.on('show.simplelightbox', function () {
+    //     // console.log(123);
+    //     // alert("123")
+    // });
+
     // У Ж Е   НЕ   Н А Д О  !!!!
     // Делаем fetch-запрос для получения totalHits
     // pixabayApiService.fetchTotalHits()
@@ -118,11 +124,6 @@ function onFormSearch(evt) {
 //!  Ф-ция, к-рая прослушивает события на кнопке LOAD MORE:
 function onLoadMore(evt) {
     loadMoreBtn.disable() //! Кнопка LOAD MORE => ВЫключаем
-
-    //! Использование библиотеки SimpleLightbox:
-    // gallery.on('show.simplelightbox', function () {
-    // });
-    gallery.refresh();
 
 
     //? Делаем fetch-запрос с помощью метода .fetchHits из класса PixabayApiService
@@ -141,8 +142,10 @@ function onLoadMore(evt) {
             loadMoreBtn.enable();  //! Кнопка LOAD MORE => включаем
         });
 
-
-
+    //! Использование библиотеки SimpleLightbox:
+    // gallery.refresh();
+    // gallery.on('show.simplelightbox', function () {
+    // });
 
 }
 //! +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -209,15 +212,11 @@ function createImageCardsMarkup(hits) {
         .map(({ webformatURL, largeImageURL, tags, likes, views, comments, downloads }) => {
             return `
                 <div class="photo-card">
-                    <div>
-                        <a class="gallery__link" href="${largeImageURL}">
                             <img class="img-card"
                                 src="${webformatURL}"
                                 alt=${tags}
                                 loading="lazy" 
-                            />
-                        </a>
-                    </div>    
+                            /> 
                     <div class="info">
                         <p class="info-item">
                             <b>Likes</b>

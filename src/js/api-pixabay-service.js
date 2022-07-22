@@ -9,7 +9,7 @@ export default class PixabayApiService {
         this.searchQuery = ""; //! это то, что приходит в input
         //! Пагинация:
         this.page = 1; //! номер страницы (группы) в fetch-запросе
-        this.per_page = 20; // по ТЗ надо 40
+        this.per_page = 40; // по ТЗ надо 40
     }
 
 
