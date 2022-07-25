@@ -31,12 +31,12 @@ const loadMoreBtn = new LoadMoreBtn({
 //! Вызов библиотеки SimpleLightbox:
 // let gallery = new SimpleLightbox('.gallery a');
 
-// let gallery = new SimpleLightbox('.gallery a', {
-//     // caption: true,
-//     captionPosition: 'bottom',
-//     captionDelay: 250,
-//     captionsData: "alt",
-// });
+let gallery = new SimpleLightbox('.gallery a', {
+    // caption: true,
+    captionPosition: 'bottom',
+    captionDelay: 250,
+    captionsData: "alt",
+});
 
 
 
@@ -104,15 +104,16 @@ function onFormSearch(evt) {
         .then(hits => {
             appendHitsMarkup(hits); //* Рисование интерфейса выносим в отдельную ф-цию
             loadMoreBtn.enable();  //! Кнопка LOAD MORE => включаем
+            gallery.refresh();  //? Использование библиотеки SimpleLightbox:
+            // gallery.on('show.simplelightbox', function () {
+            // });
         });
 
-    //! Использование библиотеки SimpleLightbox:
+    //! Использование библиотеки SimpleLightbox (НЕ ТУТ!!!)
     // gallery.refresh();
-    // // gallery.open();
     // gallery.on('show.simplelightbox', function () {
-    //     // console.log(123);
-    //     // alert("123")
     // });
+
 
     // У Ж Е   НЕ   Н А Д О  !!!!
     // Делаем fetch-запрос для получения totalHits
@@ -140,9 +141,10 @@ function onLoadMore(evt) {
         .then(hits => {
             appendHitsMarkup(hits); //* Рисование интерфейса выносим в отдельную ф-цию
             loadMoreBtn.enable();  //! Кнопка LOAD MORE => включаем
+            gallery.refresh();  //? Использование библиотеки SimpleLightbox:
         });
 
-    //! Использование библиотеки SimpleLightbox:
+    //! Использование библиотеки SimpleLightbox (НЕ ТУТ!!!)
     // gallery.refresh();
     // gallery.on('show.simplelightbox', function () {
     // });
@@ -212,11 +214,13 @@ function createImageCardsMarkup(hits) {
         .map(({ webformatURL, largeImageURL, tags, likes, views, comments, downloads }) => {
             return `
                 <div class="photo-card">
+                        <a class="gallery__link" href="${largeImageURL}">
                             <img class="img-card"
                                 src="${webformatURL}"
                                 alt=${tags}
                                 loading="lazy" 
                             /> 
+                        </a>
                     <div class="info">
                         <p class="info-item">
                             <b>Likes</b>
